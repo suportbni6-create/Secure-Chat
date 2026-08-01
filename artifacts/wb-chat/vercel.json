@@ -1,6 +1,0 @@
-{
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-  "buildCommand": "cd ../.. && pnpm --filter @workspace/wb-chat run build",
-  "outputDirectory": "artifacts/wb-chat/dist/public",
-  "framework": null
-}
