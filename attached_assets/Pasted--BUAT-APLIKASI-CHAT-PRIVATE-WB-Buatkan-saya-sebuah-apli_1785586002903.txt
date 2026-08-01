@@ -1,0 +1,614 @@
+# BUAT APLIKASI CHAT PRIVATE "WB"
+
+Buatkan saya sebuah aplikasi chat pribadi bernama **WB**.
+
+WB adalah sebuah **website PWA (Progressive Web App)** yang memiliki pengalaman seperti aplikasi WhatsApp.
+
+Aplikasi ini bukan aplikasi native Android/iOS.
+
+Aplikasi harus:
+
+* Bisa dibuka melalui browser
+* Bisa digunakan di HP Android
+* Bisa digunakan di iPhone
+* Bisa digunakan di tablet
+* Bisa digunakan di desktop
+* Bisa di-install ke Home Screen seperti aplikasi
+* Bisa berjalan fullscreen seperti aplikasi
+
+---
+
+# ALUR DEVELOPMENT
+
+Project dibuat dengan workflow:
+
+Replit → GitHub → Vercel
+
+Project harus:
+
+* Bisa dibuat di Replit
+* Bisa push ke GitHub
+* Bisa deploy ke Vercel
+* Production ready
+
+---
+
+# TEKNOLOGI WAJIB
+
+Gunakan:
+
+Frontend:
+
+* React
+* Vite
+* TypeScript
+* Tailwind CSS
+* React Router
+
+Database:
+
+* Firebase Authentication
+* Firebase Firestore
+
+Media:
+
+* Cloudinary
+
+Real-time Call:
+
+* WebRTC
+
+PWA:
+
+* vite-plugin-pwa
+
+Deployment:
+
+* GitHub
+* Vercel
+
+---
+
+# NAMA APLIKASI
+
+Nama aplikasi:
+
+WB
+
+Gunakan nama WB pada:
+
+* Website title
+* PWA name
+* Short name
+* Manifest
+* Splash screen
+* Metadata
+* Header aplikasi
+
+---
+
+# KONSEP APLIKASI
+
+WB hanya untuk komunikasi pribadi antara 2 orang.
+
+Jangan membuat:
+
+* daftar kontak
+* pencarian pengguna
+* grup
+* username publik
+* profile publik
+* follow
+* follower
+* story
+* status
+* komunitas
+* fitur sosial
+
+Hanya ada:
+
+1 room chat private.
+
+---
+
+# FIREBASE CONFIGURATION
+
+Gunakan Firebase berikut:
+
+```env
+VITE_FIREBASE_API_KEY=AIzaSyBVwUHvvxcHy2eNnq1iD6aduU04dZ4GEYo
+
+VITE_FIREBASE_AUTH_DOMAIN=belajar-nihonggo.firebaseapp.com
+
+VITE_FIREBASE_PROJECT_ID=belajar-nihonggo
+
+VITE_FIREBASE_STORAGE_BUCKET=belajar-nihonggo.firebasestorage.app
+
+VITE_FIREBASE_MESSAGING_SENDER_ID=108730518703
+
+VITE_FIREBASE_APP_ID=1:108730518703:web:d2b401d38fc221e416d85a
+
+VITE_FIREBASE_MEASUREMENT_ID=G-G9V27B8JXJ
+```
+
+Gunakan:
+
+import.meta.env.VITE_
+
+Jangan hardcode konfigurasi di component.
+
+---
+
+# CLOUDINARY CONFIGURATION
+
+Gunakan:
+
+```env
+VITE_CLOUDINARY_CLOUD_NAME=ecmnslxk
+
+VITE_CLOUDINARY_UPLOAD_PRESET=chat_upload
+```
+
+Semua file:
+
+* foto
+* video
+* voice note
+
+WAJIB upload ke Cloudinary.
+
+Jangan gunakan Firebase Storage.
+
+---
+
+# ENVIRONMENT VARIABLE
+
+Buat:
+
+.env.example
+
+Isi:
+
+```env
+VITE_FIREBASE_API_KEY=
+
+VITE_FIREBASE_AUTH_DOMAIN=
+
+VITE_FIREBASE_PROJECT_ID=
+
+VITE_FIREBASE_STORAGE_BUCKET=
+
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+
+VITE_FIREBASE_APP_ID=
+
+VITE_FIREBASE_MEASUREMENT_ID=
+
+VITE_SECRET_CODE=WB-PRIVATE-2026
+
+VITE_CLOUDINARY_CLOUD_NAME=
+
+VITE_CLOUDINARY_UPLOAD_PRESET=
+```
+
+Jangan upload file .env ke GitHub.
+
+---
+
+# LOGIN SYSTEM
+
+Tidak ada:
+
+* registrasi
+* email login
+* password login
+* username
+
+Gunakan:
+
+Firebase Anonymous Authentication.
+
+Alur:
+
+User membuka WB.
+
+Muncul halaman:
+
+"Masukkan kode rahasia"
+
+Kode:
+
+WB-PRIVATE-2026
+
+Jika benar:
+
+* Firebase membuat anonymous user
+* Simpan UID
+* Masuk room private
+
+Jika salah:
+
+* akses ditolak
+
+---
+
+# SISTEM 2 USER
+
+WB hanya boleh digunakan oleh 2 orang.
+
+Buat sistem whitelist.
+
+Tambahkan:
+
+USER_1_UID
+
+USER_2_UID
+
+User lain tidak boleh membaca database.
+
+---
+
+# FIRESTORE DATABASE
+
+Gunakan struktur:
+
+rooms
+
+└── private-room
+
+```
+  ├── messages
+
+  ├── calls
+
+  └── users
+```
+
+Messages:
+
+```json
+{
+"id":"",
+"senderId":"",
+"text":"",
+"type":"",
+"mediaUrl":"",
+"timestamp":"",
+"delivered":false,
+"read":false
+}
+```
+
+---
+
+# FITUR CHAT
+
+Buat seperti WhatsApp.
+
+Fitur:
+
+* chat realtime
+* kirim pesan instan
+* timestamp
+* status terkirim
+* status dibaca
+* auto scroll pesan terbaru
+* riwayat chat
+* bubble chat kanan kiri
+* loading state
+* error handling
+
+Input:
+
+* Enter kirim
+* Shift Enter baris baru
+
+Tambahkan:
+
+* emoji
+
+---
+
+# FOTO
+
+Fitur:
+
+* tombol attachment
+* pilih dari galeri
+* kamera HP
+* preview sebelum kirim
+* upload Cloudinary
+* simpan URL Firestore
+* tampilkan foto di chat
+* klik foto fullscreen
+
+---
+
+# VIDEO
+
+Fitur:
+
+* pilih video
+* upload Cloudinary
+* progress upload
+* simpan URL Firestore
+* video player langsung
+
+---
+
+# VOICE NOTE
+
+Gunakan:
+
+MediaRecorder API
+
+Fitur:
+
+* rekam suara
+* timer
+* pause
+* resume
+* stop
+* preview audio
+* upload Cloudinary
+* simpan URL Firestore
+* audio player
+
+---
+
+# VIDEO CALL WEBRTC
+
+Buat video call:
+
+1 lawan 1.
+
+Gunakan:
+
+WebRTC PeerConnection.
+
+Gunakan Firestore sebagai signaling server.
+
+STUN:
+
+stun:stun.l.google.com:19302
+
+Struktur harus mudah ditambah TURN Server.
+
+Fitur:
+
+* mulai panggilan
+* terima panggilan
+* tolak panggilan
+* akhiri panggilan
+* kamera ON/OFF
+* mute microphone
+* speaker
+* switch camera mobile
+* call timer
+* connection status
+
+---
+
+# UI DESIGN
+
+Buat tampilan seperti aplikasi chat modern.
+
+Mobile first.
+
+Gunakan:
+
+* full height layout
+* fixed chat input bawah
+* tombol besar untuk HP
+* smooth scrolling
+* responsive
+
+Support:
+
+* Android
+* iPhone
+* Tablet
+* Desktop
+
+Tambahkan:
+
+* Dark Mode
+* Light Mode
+
+---
+
+# PWA
+
+Gunakan:
+
+vite-plugin-pwa
+
+Buat:
+
+* manifest.json
+* service worker
+* icon WB
+* splash screen
+* theme color
+* background color
+
+Manifest:
+
+name:
+
+WB
+
+short_name:
+
+WB
+
+display:
+
+standalone
+
+orientation:
+
+portrait
+
+Aplikasi harus bisa:
+
+Add to Home Screen.
+
+---
+
+# FIREBASE SECURITY RULES
+
+Buat:
+
+firestore.rules
+
+Pastikan:
+
+Hanya 2 UID yang boleh:
+
+* membaca pesan
+* mengirim pesan
+* membaca call signaling
+
+User lain:
+
+ditolak.
+
+---
+
+# STRUKTUR PROJECT
+
+Gunakan:
+
+src/
+
+components/
+
+pages/
+
+hooks/
+
+firebase/
+
+services/
+
+cloudinary/
+
+webrtc/
+
+utils/
+
+types/
+
+Pisahkan:
+
+* Firebase config
+* Auth service
+* Firestore service
+* Cloudinary uploader
+* WebRTC service
+
+---
+
+# GITHUB
+
+Project harus siap GitHub.
+
+Buat:
+
+.gitignore
+
+Jangan upload:
+
+* node_modules
+* .env
+* file rahasia
+
+Buat README lengkap.
+
+---
+
+# VERCEL
+
+Project harus bisa deploy:
+
+GitHub → Vercel
+
+Pastikan:
+
+npm run build
+
+berhasil.
+
+README harus menjelaskan:
+
+* cara upload ke GitHub
+* cara import ke Vercel
+* cara memasukkan Environment Variables Vercel
+* cara redeploy
+
+---
+
+# OPTIMASI
+
+Karena hanya 2 pengguna:
+
+Optimalkan:
+
+* Firestore read
+* Firestore listener
+* ukuran bundle
+* upload media
+* kecepatan loading
+
+Gunakan:
+
+* lazy loading
+* compression
+* dynamic import
+
+---
+
+# FILE WAJIB DIBUAT
+
+Buat semua:
+
+package.json
+
+vite.config.ts
+
+tailwind.config.js
+
+tsconfig.json
+
+.env.example
+
+README.md
+
+firestore.rules
+
+manifest.json
+
+service worker
+
+semua component
+
+semua halaman
+
+semua service
+
+---
+
+# HASIL AKHIR
+
+Buat project lengkap.
+
+Jangan memberikan contoh kode.
+
+Jangan memberikan potongan kode.
+
+Buat semua file sampai aplikasi berjalan.
+
+Jika output terlalu panjang:
+
+lanjutkan otomatis ke file berikutnya sampai seluruh project selesai.

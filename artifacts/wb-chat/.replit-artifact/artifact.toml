@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "WB Chat"
+description = "WB adalah aplikasi chat private PWA untuk komunikasi 1-lawan-1. Dilengkapi dengan Firebase Authentication anonim, real-time messaging via Firestore, pengiriman foto/video/voice note melalui Cloudinary, video call WebRTC, dan dukungan PWA untuk instalasi di HP."
+version = "1.0.0"
+id = "artifacts/wb-chat"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20347
+
+[services.development]
+run = "pnpm --filter @workspace/wb-chat run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/wb-chat", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/wb-chat/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20347"
+BASE_PATH = "/"

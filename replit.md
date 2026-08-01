@@ -1,6 +1,6 @@
-# [Project name]
+# WB Chat
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Aplikasi chat private PWA untuk 2 orang — real-time messaging, foto/video/voice note via Cloudinary, video call WebRTC, dan Firebase Anonymous Auth dengan kode rahasia.
 
 ## Run & Operate
 
